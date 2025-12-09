@@ -1,0 +1,5 @@
+/ion/Z 55
+/ion/A 137
+
+/run/initialize
+/process/had/rdm/thresholdForVeryLongDecayTime 1.0e+10 year
