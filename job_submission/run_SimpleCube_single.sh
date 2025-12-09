@@ -1,4 +1,12 @@
 #!/bin/bash
+#PBS -N SimpleCube_job
+#PBS -q N
+#PBS -m n
+#PBS -l walltime=1:00:00
+#PBS -l select=1:ncpus=1:mem=2500mb
+#PBS -l io=1
+#PBS -j oe
+#PBS -o n
 
 # Load environment
 echo "Activating LCG environment..."

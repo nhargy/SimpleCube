@@ -30,7 +30,7 @@ build_jobscript() {
     local jobscript="$1"
     local primaries="$2"
     local outfilename="$3"
-    local macro="$5"
+    local macro="$4"
 
     sed \
         -e "s|{{PRIMARIES}}|$primaries|g" \
@@ -49,7 +49,6 @@ submit_job() {
     local jobscript="$1"
     local basename="$2"
 
-    msg "Submitting job $basename"
     qsub "$jobscript"
 }
 
@@ -66,7 +65,7 @@ for ((i = 1; i <= END_INDEX; i++)); do
     JOBID=$(printf "%04d" $i)
     BASENAME="${MACRO_TAG}_${JOBID}"
     OUTFILENAME="${BASENAME}.root"
-
+    echo $OUTFILENAME
     #STEP=""   # reset per job
 
     JOBSCRIPT="$TMPDIR/hermeticsub_${JOBID}.sh"
@@ -75,4 +74,4 @@ for ((i = 1; i <= END_INDEX; i++)); do
 done
 
 rm -r "$TMPDIR"
-ok "All jobs processed."
+echo "All jobs processed."
