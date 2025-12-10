@@ -1,16 +1,12 @@
 #ifndef SCPHYSICSLISTS_HH
 #define SCPHYSICSLISTS_HH
 
-#include "G4VModularPhysicsList.hh"
-#include "G4EmStandardPhysics.hh"
-#include "G4RadioactiveDecayPhysics.hh"
-#include "G4DecayPhysics.hh"
-
-class SCPhysicsList : public G4VModularPhysicsList
+#include "FTFP_BERT_HP.hh"
+class SCPhysicsList : public FTFP_BERT_HP
 {
 public:
     SCPhysicsList();
-    ~SCPhysicsList();
+    ~SCPhysicsList() override;
 };
 
 #endif

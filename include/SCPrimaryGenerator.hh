@@ -23,12 +23,15 @@ private:
 
     G4ParticleGun *fParticleGun;
     
-    G4GenericMessenger* fMessengerIon;
-    G4int Z;
-    G4int A;
-    G4double xIon;
-    G4double yIon;
-    G4double zIon;
+    G4GenericMessenger* fMessengerSource;
+    G4int    isIon;
+    G4int    pdgSource;
+    G4int    Z;
+    G4int    A;
+    G4double energySource;
+    G4double xSource;
+    G4double ySource;
+    G4double zSource;
 };
 
 #endif

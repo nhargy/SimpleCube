@@ -13,8 +13,11 @@
 
 int main(int argc, char** argv) {
 
+    G4RunManager *runManager = new G4RunManager;
+    G4UIExecutive *ui = nullptr;
+
     G4String macroFile  = "";
-    G4String outputFile  = "./";
+    G4String outputFile  = "output.root";
     G4int    nPrimaries = 1; 
 
     // Simple manual arg parsing
@@ -45,6 +48,9 @@ int main(int argc, char** argv) {
                 return 1;
             }
         }
+        else if (arg == "-i") {
+                ui = new G4UIExecutive(argc, argv);
+            }
         else if (arg == "-h" || arg == "--help") {
             G4cout
                 << "Usage: " << argv[0] << " [options]\n"
@@ -63,10 +69,6 @@ int main(int argc, char** argv) {
             }
         }}
 
-    G4RunManager *runManager = new G4RunManager;
-
-    G4UIExecutive *ui = nullptr;
-
     // Physics list
     runManager->SetUserInitialization(new SCPhysicsList());
 
@@ -76,18 +78,21 @@ int main(int argc, char** argv) {
     // Action initialization
     runManager->SetUserInitialization(new SCActionInitialization(outputFile));
 
-    if (argc == 1)
-    {
-        ui = new G4UIExecutive(argc, argv);
-    }
+    //if (argc == 1)
+    //{
+    //    ui = new G4UIExecutive(argc, argv);
+    //}
 
     G4VisManager *visManager = new G4VisExecutive();
     visManager->Initialize();
 
     G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
-    if(ui)
-    {
+    if (ui) {
+        if (!macroFile.empty()) {
+            UImanager->ApplyCommand("/control/execute " + macroFile);
+        }
+
         UImanager->ApplyCommand("/control/execute ../macros/vis.mac");
         ui->SessionStart();
     }
@@ -98,7 +103,6 @@ int main(int argc, char** argv) {
         UImanager->ApplyCommand(command + macroFile);
 
         runManager->BeamOn(nPrimaries);
-
     }
 
     delete runManager;

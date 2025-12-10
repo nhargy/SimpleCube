@@ -1,5 +1,21 @@
-/ion/Z 55
-/ion/A 137
+# Caesium 137
+/source/isIon 1
+/source/Z 55
+/source/A 137
+
+# Cube dimensions
+/cube/Cube_Width  = 10
+/cube/Cube_Length = 10
+/cube/Cube_Height = 10
+
+# Cube position
+/cube/xCube 40
+/cube/yCube 0
+/cube/zCube 5
+
+# Lithium relative abundances
+/cube/Li7_percent 93
+/cube/Li6_percent 7
 
 /run/initialize
-/process/had/rdm/thresholdForVeryLongDecayTime 1.0e+10 year
+/process/had/rdm/thresholdForVeryLongDecayTime 1.0e+30 year

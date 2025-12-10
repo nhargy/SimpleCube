@@ -1,17 +1,9 @@
 #include "SCPhysicsList.hh"
+#include "G4SystemOfUnits.hh"
 
 SCPhysicsList::SCPhysicsList()
-{
-    // EM Physics
-    RegisterPhysics(new G4EmStandardPhysics());
-
-    // Radioactive decay physics
-    RegisterPhysics(new G4RadioactiveDecayPhysics());
-
-    // Decay physics
-    RegisterPhysics(new G4DecayPhysics());
-}
-
-SCPhysicsList::~SCPhysicsList()
+    : FTFP_BERT_HP()   // call base constructor
 {
 }
+
+SCPhysicsList::~SCPhysicsList() = default;

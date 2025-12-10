@@ -1,7 +1,6 @@
-# Cobalt 60
 /source/isIon 1
-/source/Z 27
-/source/A 60
+/source/Z 92
+/source/A 238
 
 # Cube dimensions
 /cube/Cube_Width  = 10

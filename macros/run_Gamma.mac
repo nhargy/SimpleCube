@@ -1,12 +1,11 @@
-# Cobalt 60
-/source/isIon 1
-/source/Z 27
-/source/A 60
+/source/isIon 0
+/source/pdgSource 22
+/source/energySource 1
 
 # Cube dimensions
-/cube/Cube_Width  = 10
-/cube/Cube_Length = 10
-/cube/Cube_Height = 10
+/cube/Cube_Width 10
+/cube/Cube_Length 10
+/cube/Cube_Height 10
 
 # Cube position
 /cube/xCube 40

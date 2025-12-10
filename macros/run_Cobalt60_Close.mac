@@ -1,9 +1,0 @@
-/ion/Z 27
-/ion/A 60
-
-/ion/xIon 30
-/ion/yIon 0
-/ion/zIon 0
-
-/run/initialize
-/process/had/rdm/thresholdForVeryLongDecayTime 1.0e+10 year
