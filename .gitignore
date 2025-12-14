@@ -3,5 +3,6 @@ logs/
 .vscode/
 lib/
 *.root
+*.parquet
 Notebooks/
 loc_data/
