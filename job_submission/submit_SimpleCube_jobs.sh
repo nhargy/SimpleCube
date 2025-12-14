@@ -31,11 +31,13 @@ build_jobscript() {
     local primaries="$2"
     local outfilename="$3"
     local macro="$4"
+    local procfilename="$5"
 
     sed \
         -e "s|{{PRIMARIES}}|$primaries|g" \
         -e "s|{{OUTFILENAME}}|$outfilename|g" \
         -e "s|{{MACROFILE}}|$macro|g" \
+        -e "s|{{PROCFILENAME}}|$procfilename|g" \
         -e "s|{{USER}}|$USER|g" \
         "$TEMPLATE" > "$jobscript"
 
@@ -65,13 +67,14 @@ for ((i = 1; i <= END_INDEX; i++)); do
     JOBID=$(printf "%04d" $i)
     BASENAME="${MACRO_TAG}_${JOBID}"
     OUTFILENAME="${BASENAME}.root"
+    PROCFILENAME="${BASENAME}.parquet"
     echo $OUTFILENAME
     #STEP=""   # reset per job
 
     JOBSCRIPT="$TMPDIR/hermeticsub_${JOBID}.sh"
-    build_jobscript "$JOBSCRIPT" "$PRIMARIES" "$OUTFILENAME" "$MACROFILE"
+    build_jobscript "$JOBSCRIPT" "$PRIMARIES" "$OUTFILENAME" "$MACROFILE" "$PROCFILENAME"
     submit_job "$JOBSCRIPT" "$BASENAME"
 done
 
 rm -r "$TMPDIR"
-echo "All jobs processed."
+echo "All jobs simulated and processed."

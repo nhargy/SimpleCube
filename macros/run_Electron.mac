@@ -3,9 +3,9 @@
 /source/energySource 1
 
 # Cube dimensions
-/cube/Cube_Width  = 10
-/cube/Cube_Length = 10
-/cube/Cube_Height = 10
+/cube/Cube_Width 10
+/cube/Cube_Length 10
+/cube/Cube_Height 10
 
 # Cube position
 /cube/xCube 40

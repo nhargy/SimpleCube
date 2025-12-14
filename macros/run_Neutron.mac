@@ -1,11 +1,17 @@
+##########################
+### MACRO: Neutron Gun ###
+##########################
+
+# Distance units: [mm]  
+
 /source/isIon 0
 /source/pdgSource 2112
 /source/energySource 4
 
 # Cube dimensions
-/cube/Cube_Width  = 10
-/cube/Cube_Length = 10
-/cube/Cube_Height = 10
+/cube/Cube_Width 10
+/cube/Cube_Length 10
+/cube/Cube_Height 10
 
 # Cube position
 /cube/xCube 40

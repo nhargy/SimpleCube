@@ -17,9 +17,13 @@ G4bool SCSensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     G4int eventID = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
     G4Track *track = aStep->GetTrack();
 
+    // Creator process (nullptr for primaries)
+    const G4VProcess* creatorProc = track->GetCreatorProcess();
+    G4String creatorProcName = creatorProc ? creatorProc->GetProcessName() : "primary";
+
     // Track info
-    G4int trackID  = track->GetTrackID();
-    G4int ptrackID = track->GetParentID();
+    //G4int trackID  = track->GetTrackID();
+    //G4int ptrackID = track->GetParentID();
     G4int pdgID    = track->GetDefinition()->GetPDGEncoding();
 
     // Pre-step Coordinates
@@ -54,31 +58,32 @@ G4bool SCSensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     G4bool isEntry = (preStepPoint->GetStepStatus()==fGeomBoundary);
 
     // Is it an exit particle?
-    G4bool isExit = (postStepPoint->GetStepStatus()==fGeomBoundary);
+    //G4bool isExit = (postStepPoint->GetStepStatus()==fGeomBoundary);
 
     // Time
-    G4float fSec = postStepPoint->GetGlobalTime() / 1E+09;
+    //G4float fSec = postStepPoint->GetGlobalTime() / 1E+09;
 
     // Build Records Table
     G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
     analysisManager->FillNtupleIColumn(0, 0,  eventID);
-    analysisManager->FillNtupleIColumn(0, 1,  ptrackID);
-    analysisManager->FillNtupleIColumn(0, 2,  trackID);
-    analysisManager->FillNtupleIColumn(0, 3,  pdgID);
-    analysisManager->FillNtupleIColumn(0, 4,  isEntry);
-    analysisManager->FillNtupleIColumn(0, 5,  isExit);
-    analysisManager->FillNtupleSColumn(0, 6,  preProcName);
-    analysisManager->FillNtupleSColumn(0, 7,  postProcName);
-    analysisManager->FillNtupleDColumn(0, 8,  fX1);
-    analysisManager->FillNtupleDColumn(0, 9,  fY1);
-    analysisManager->FillNtupleDColumn(0, 10, fZ1);
-    analysisManager->FillNtupleDColumn(0, 11, fX2);
-    analysisManager->FillNtupleDColumn(0, 12, fY2);
-    analysisManager->FillNtupleDColumn(0, 13, fZ2);
-    analysisManager->FillNtupleDColumn(0, 14, fK1);
-    analysisManager->FillNtupleDColumn(0, 15, fK2);
-    analysisManager->FillNtupleDColumn(0, 16, fEdep);
-    analysisManager->FillNtupleDColumn(0, 17, fSec);
+    //analysisManager->FillNtupleIColumn(0, 1,  ptrackID);
+    //analysisManager->FillNtupleIColumn(0, 2,  trackID);
+    analysisManager->FillNtupleIColumn(0, 1,  pdgID);
+    analysisManager->FillNtupleIColumn(0, 2,  isEntry);
+    //analysisManager->FillNtupleIColumn(0, 3,  isExit);
+    analysisManager->FillNtupleSColumn(0, 3,  preProcName);
+    analysisManager->FillNtupleSColumn(0, 4,  postProcName);
+    analysisManager->FillNtupleSColumn(0, 5,  creatorProcName);
+    analysisManager->FillNtupleDColumn(0, 6,  fX1);
+    analysisManager->FillNtupleDColumn(0, 7, fY1);
+    analysisManager->FillNtupleDColumn(0, 8, fZ1);
+    analysisManager->FillNtupleDColumn(0, 9, fX2);
+    analysisManager->FillNtupleDColumn(0, 10, fY2);
+    analysisManager->FillNtupleDColumn(0, 11, fZ2);
+    analysisManager->FillNtupleDColumn(0, 12, fK1);
+    analysisManager->FillNtupleDColumn(0, 13, fK2);
+    analysisManager->FillNtupleDColumn(0, 14, fEdep);
+    //analysisManager->FillNtupleDColumn(0, 16, fSec);
     analysisManager->AddNtupleRow(0);
 
     return true;

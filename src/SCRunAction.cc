@@ -9,13 +9,14 @@ SCRunAction::SCRunAction()
 
     analysisManager->CreateNtuple("Hits", "Hits");
     analysisManager->CreateNtupleIColumn("eventID");
-    analysisManager->CreateNtupleIColumn("ptrackID");
-    analysisManager->CreateNtupleIColumn("trackID");
+    //analysisManager->CreateNtupleIColumn("ptrackID");
+    //analysisManager->CreateNtupleIColumn("trackID");
     analysisManager->CreateNtupleIColumn("pdgID");
     analysisManager->CreateNtupleIColumn("isEntry");
-    analysisManager->CreateNtupleIColumn("isExit");
+    //analysisManager->CreateNtupleIColumn("isExit");
     analysisManager->CreateNtupleSColumn("preProcName");
     analysisManager->CreateNtupleSColumn("postProcName");
+    analysisManager->CreateNtupleSColumn("creatorProc");
     analysisManager->CreateNtupleDColumn("fX1");
     analysisManager->CreateNtupleDColumn("fY1");
     analysisManager->CreateNtupleDColumn("fZ1");
@@ -25,7 +26,7 @@ SCRunAction::SCRunAction()
     analysisManager->CreateNtupleDColumn("fK1");
     analysisManager->CreateNtupleDColumn("fK2");
     analysisManager->CreateNtupleDColumn("fEdep");
-    analysisManager->CreateNtupleDColumn("fSec");
+    //analysisManager->CreateNtupleDColumn("fSec");
     analysisManager->FinishNtuple(0);
 }
 
