@@ -77,4 +77,4 @@ for ((i = 1; i <= END_INDEX; i++)); do
 done
 
 rm -r "$TMPDIR"
-echo "All jobs simulated and processed."
+echo "All jobs processed."
