@@ -13,11 +13,8 @@ def read_root_file(
     with uproot.open(fn) as f:
         tree = f[f"{treename}"]
         branches = ['eventID',
-                    'ptrackID',
-                    'trackID',
                     'pdgID',
                     'isEntry',
-                    'isExit',
                     'preProcName',
                     'postProcName',
                     'creatorProc',
@@ -29,8 +26,7 @@ def read_root_file(
                     'fZ2', 
                     'fK1',
                     'fK2',
-                    'fEdep',
-                    'fSec'
+                    'fEdep'
                     ]
         
         data = tree.arrays(
