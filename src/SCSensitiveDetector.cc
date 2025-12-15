@@ -46,9 +46,9 @@ G4bool SCSensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     G4double fEdep = aStep->GetTotalEnergyDeposit();
 
     // Interaction Process
-    const G4VProcess *preProc = preStepPoint->GetProcessDefinedStep(); 
-    G4String preProcName = "NA";
-    if (preProc) preProcName = preProc->GetProcessName();
+    //const G4VProcess *preProc = preStepPoint->GetProcessDefinedStep(); 
+    //G4String preProcName = "NA";
+    //if (preProc) preProcName = preProc->GetProcessName();
 
     const G4VProcess *postProc = postStepPoint->GetProcessDefinedStep(); 
     G4String postProcName = "NA";
@@ -71,18 +71,18 @@ G4bool SCSensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     analysisManager->FillNtupleIColumn(0, 1,  pdgID);
     analysisManager->FillNtupleIColumn(0, 2,  isEntry);
     //analysisManager->FillNtupleIColumn(0, 3,  isExit);
-    analysisManager->FillNtupleSColumn(0, 3,  preProcName);
-    analysisManager->FillNtupleSColumn(0, 4,  postProcName);
-    analysisManager->FillNtupleSColumn(0, 5,  creatorProcName);
-    analysisManager->FillNtupleDColumn(0, 6,  fX1);
-    analysisManager->FillNtupleDColumn(0, 7, fY1);
-    analysisManager->FillNtupleDColumn(0, 8, fZ1);
-    analysisManager->FillNtupleDColumn(0, 9, fX2);
-    analysisManager->FillNtupleDColumn(0, 10, fY2);
-    analysisManager->FillNtupleDColumn(0, 11, fZ2);
-    analysisManager->FillNtupleDColumn(0, 12, fK1);
-    analysisManager->FillNtupleDColumn(0, 13, fK2);
-    analysisManager->FillNtupleDColumn(0, 14, fEdep);
+    //analysisManager->FillNtupleSColumn(0, 3,  preProcName);
+    analysisManager->FillNtupleSColumn(0, 3,  postProcName);
+    analysisManager->FillNtupleSColumn(0, 4,  creatorProcName);
+    analysisManager->FillNtupleDColumn(0, 5,  fX1);
+    analysisManager->FillNtupleDColumn(0, 6, fY1);
+    analysisManager->FillNtupleDColumn(0, 7, fZ1);
+    analysisManager->FillNtupleDColumn(0, 8, fX2);
+    analysisManager->FillNtupleDColumn(0, 9, fY2);
+    analysisManager->FillNtupleDColumn(0, 10, fZ2);
+    analysisManager->FillNtupleDColumn(0, 11, fK1);
+    analysisManager->FillNtupleDColumn(0, 12, fK2);
+    analysisManager->FillNtupleDColumn(0, 13, fEdep);
     //analysisManager->FillNtupleDColumn(0, 16, fSec);
     analysisManager->AddNtupleRow(0);
 

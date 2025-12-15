@@ -45,6 +45,10 @@ private:
     G4LogicalVolume*   logic_Cube;
     G4VPhysicalVolume* phys_Cube;
 
+    /* Fiducial Cube */
+    G4LogicalVolume*   logic_FiducialCube;
+    G4VPhysicalVolume* phys_FiducialCube;
+
     // Material definitions
     G4Material* Air;
     G4Material* LiF;
@@ -65,6 +69,10 @@ private:
     G4double Cube_Width;
     G4double Cube_Length;
     G4double Cube_Height;
+
+    G4double FiducialCube_Width;
+    G4double FiducialCube_Length;
+    G4double FiducialCube_Height;
 
     G4double Li7_percent;
     G4double Li6_percent;

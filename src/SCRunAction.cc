@@ -14,7 +14,7 @@ SCRunAction::SCRunAction()
     analysisManager->CreateNtupleIColumn("pdgID");
     analysisManager->CreateNtupleIColumn("isEntry");
     //analysisManager->CreateNtupleIColumn("isExit");
-    analysisManager->CreateNtupleSColumn("preProcName");
+    //analysisManager->CreateNtupleSColumn("preProcName");
     analysisManager->CreateNtupleSColumn("postProcName");
     analysisManager->CreateNtupleSColumn("creatorProc");
     analysisManager->CreateNtupleDColumn("fX1");

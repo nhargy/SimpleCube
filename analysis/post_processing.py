@@ -13,12 +13,8 @@ def read_root_file(
     with uproot.open(fn) as f:
         tree = f[f"{treename}"]
         branches = ['eventID',
-                    'ptrackID',
-                    'trackID',
                     'pdgID',
                     'isEntry',
-                    'isExit',
-                    'preProcName',
                     'postProcName',
                     'creatorProc',
                     'fX1', 
@@ -29,8 +25,7 @@ def read_root_file(
                     'fZ2', 
                     'fK1',
                     'fK2',
-                    'fEdep',
-                    'fSec'
+                    'fEdep'
                     ]
         
         data = tree.arrays(
@@ -61,5 +56,16 @@ good_events = edep_by_event[edep_by_event > 0].index
 # Filter original df
 eDf = df[df["eventID"].isin(good_events)]
 
-print(f"Saving DataFrame as parquet: {args.outfile}")
-eDf.to_parquet(args.outfile)
+# Now make the df smaller:
+cat_cols = ["creatorProc", "preProcName", "postProcName"]
+for c in cat_cols:
+    eDf[c] = eDf[c].astype("category")
+
+for c in eDf.select_dtypes(include=["int64"]).columns:
+    eDf[c] = pd.to_numeric(eDf[c], downcast="integer")
+for c in df.select_dtypes(include=["float64"]).columns:
+    eDf[c] = pd.to_numeric(eDfdf[c], downcast="float")
+
+eDf["isEntry"] = eDf["isEntry"].astype("bool")
+
+eDf.to_parquet(args.outfile, engine="pyarrow", compression="zstd", index=False)

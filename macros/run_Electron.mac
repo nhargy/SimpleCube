@@ -1,3 +1,9 @@
+###########################
+### MACRO: Electron Gun ###
+###########################
+
+# Distance units: [mm]  
+
 /source/isIon 0
 /source/pdgSource 11
 /source/energySource 1
@@ -17,4 +23,4 @@
 /cube/Li6_percent 7
 
 /run/initialize
-/process/had/rdm/thresholdForVeryLongDecayTime 1.0e+30 year
+/process/had/rdm/thresholdForVeryLongDecayTime 1.0e+3 year
