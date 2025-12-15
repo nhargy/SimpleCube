@@ -69,6 +69,8 @@ for ((i = 1; i <= END_INDEX; i++)); do
     OUTFILENAME="${BASENAME}.root"
     PROCFILENAME="${BASENAME}.parquet"
     echo $OUTFILENAME
+    echo $PROCFILENAME
+    echo ""
     #STEP=""   # reset per job
 
     JOBSCRIPT="$TMPDIR/hermeticsub_${JOBID}.sh"
@@ -77,4 +79,4 @@ for ((i = 1; i <= END_INDEX; i++)); do
 done
 
 rm -r "$TMPDIR"
-echo "All jobs simulated and processed."
+echo "All jobs processed."
