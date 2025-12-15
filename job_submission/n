@@ -860,3 +860,6 @@ See commands in /vis/modeling/trajectories/ for other options.
 ====== Starting Run: 0 ======
 Finishing Run 0
 =====> Processing to .parquet format
+Processing rootfile ==> /storage/xenon/nadavh/SimpleCube/raw/Cobalt60_0036.root
+Processing rootfile ==> /storage/xenon/nadavh/SimpleCube/raw/Cobalt60_0036.root
+Saving DataFrame as parquet: /storage/xenon/nadavh/SimpleCube/proc/Cobalt60_0036.parquet
