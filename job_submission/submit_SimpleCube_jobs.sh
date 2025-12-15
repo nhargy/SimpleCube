@@ -69,6 +69,8 @@ for ((i = 1; i <= END_INDEX; i++)); do
     OUTFILENAME="${BASENAME}.root"
     PROCFILENAME="${BASENAME}.parquet"
     echo $OUTFILENAME
+    echo $PROCFILENAME
+    echo ""
     #STEP=""   # reset per job
 
     JOBSCRIPT="$TMPDIR/hermeticsub_${JOBID}.sh"

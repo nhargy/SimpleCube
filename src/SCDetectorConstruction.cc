@@ -28,6 +28,9 @@ void SCDetectorConstruction::ApplyMessengers()
     fMessengerCube->DeclareProperty("Cube_Width", Cube_Width, "Cube_Width");
     fMessengerCube->DeclareProperty("Cube_Length", Cube_Length, "Cube_Length");
     fMessengerCube->DeclareProperty("Cube_Height", Cube_Height, "Cube_Height");
+    fMessengerCube->DeclareProperty("FiducialCube_Width", FiducialCube_Width, "CubFiducialCube_Widthe_Width");
+    fMessengerCube->DeclareProperty("FiducialCube_Length", FiducialCube_Length, "FiducialCube_Length");
+    fMessengerCube->DeclareProperty("FiducialCube_Height", FiducialCube_Height, "FiducialCube_Height");
     fMessengerCube->DeclareProperty("Li7_percent", Li7_percent, "Li7_percent");
     fMessengerCube->DeclareProperty("Li6_percent", Li6_percent, "Li6_percent");
 
@@ -39,6 +42,10 @@ void SCDetectorConstruction::ApplyMessengers()
     Cube_Width  = 10.;
     Cube_Length = 10.;
     Cube_Height = 10.;
+
+    FiducialCube_Width  = 9.;
+    FiducialCube_Length = 9.;
+    FiducialCube_Height = 9.;
 
     // Natural abundance ~ Li7 (93%), Li6 (7%)
     Li7_percent = 93.;
@@ -143,16 +150,52 @@ void SCDetectorConstruction::ConstructCube()
     );
 
     /* VisAttributes */
-    auto colour_Cube = G4Colour(Li7_percent/100, 0., Li6_percent/100);
+    auto colour_Cube = G4Colour(0, 1., 1., 1.);
     G4VisAttributes *vis_Cube = new G4VisAttributes(colour_Cube);
     vis_Cube   ->SetVisibility(true);
-    vis_Cube   ->SetForceSolid(true);
+    vis_Cube   ->SetForceWireframe(true);
     vis_Cube   ->SetForceAuxEdgeVisible(true);
     logic_Cube ->SetVisAttributes(vis_Cube);
+
+    G4Box* solid_FiducialCube = new G4Box(
+        "solid_FiducialCube", 
+        FiducialCube_Width/2, 
+        FiducialCube_Length/2, 
+        FiducialCube_Height/2
+    );
+
+    logic_FiducialCube = new G4LogicalVolume(
+        solid_FiducialCube, 
+        enLiF, 
+        "logic_FiducialCube"
+    );
+
+    auto vector_FiducialCube = G4ThreeVector(0., 0., 0.);
+    phys_FiducialCube = new G4PVPlacement(
+        0, 
+        vector_FiducialCube, 
+        logic_FiducialCube, 
+        "phys_Cube", 
+        logic_Cube, 
+        false, 
+        0, 
+        checkOverlaps
+    );
+
+    /* VisAttributes */
+    auto colour_FiducialCube = G4Colour(Li7_percent/100, 0., Li6_percent/100);
+    G4VisAttributes *vis_FiducialCube = new G4VisAttributes(colour_FiducialCube);
+    vis_FiducialCube   ->SetVisibility(true);
+    vis_FiducialCube   ->SetForceSolid(true);
+    vis_FiducialCube   ->SetForceAuxEdgeVisible(true);
+    logic_FiducialCube ->SetVisAttributes(vis_FiducialCube);
 }
 
 void SCDetectorConstruction::ConstructSDandField()
 {
     SCSensitiveDetector *sensDet = new SCSensitiveDetector("SensitveDetector");
     logic_Cube->SetSensitiveDetector(sensDet);
+}
+=======
+    logic_FiducialCube->SetSensitiveDetector(sensDet);
 }
