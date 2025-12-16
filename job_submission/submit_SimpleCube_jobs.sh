@@ -32,6 +32,7 @@ build_jobscript() {
     local outfilename="$3"
     local macro="$4"
     local procfilename="$5"
+    local seed="$6"
 
     sed \
         -e "s|{{PRIMARIES}}|$primaries|g" \
@@ -39,6 +40,7 @@ build_jobscript() {
         -e "s|{{MACROFILE}}|$macro|g" \
         -e "s|{{PROCFILENAME}}|$procfilename|g" \
         -e "s|{{USER}}|$USER|g" \
+        -e "s|{{SEED}}|$seed|g" \
         "$TEMPLATE" > "$jobscript"
 
     chmod +x "$jobscript"
@@ -71,10 +73,12 @@ for ((i = 1; i <= END_INDEX; i++)); do
     echo $OUTFILENAME
     echo $PROCFILENAME
     echo ""
-    #STEP=""   # reset per job
+
+    SEED=$((1000000 + i)) 
+    echo "Seed: ${SEED}"
 
     JOBSCRIPT="$TMPDIR/hermeticsub_${JOBID}.sh"
-    build_jobscript "$JOBSCRIPT" "$PRIMARIES" "$OUTFILENAME" "$MACROFILE" "$PROCFILENAME"
+    build_jobscript "$JOBSCRIPT" "$PRIMARIES" "$OUTFILENAME" "$MACROFILE" "$PROCFILENAME" "$SEED"
     submit_job "$JOBSCRIPT" "$BASENAME"
 done
 

@@ -17,8 +17,9 @@ int main(int argc, char** argv) {
     G4UIExecutive *ui = nullptr;
 
     G4String macroFile  = "";
-    G4String outputFile  = "output.root";
+    G4String outputFile = "output.root";
     G4int    nPrimaries = 1; 
+    G4int    seed       = 1;
 
     // Simple manual arg parsing
     for (int i = 1; i < argc; ++i) {
@@ -48,6 +49,14 @@ int main(int argc, char** argv) {
                 return 1;
             }
         }
+        else if (arg == "--seed") {
+            if (i + 1 < argc) {
+                seed = std::stoi(argv[++i]);
+            } else {
+                G4cerr << "Error: --seed requires an integer.\n";
+                return 1;
+            }
+        }
         else if (arg == "-i") {
                 ui = new G4UIExecutive(argc, argv);
             }
@@ -68,6 +77,10 @@ int main(int argc, char** argv) {
                 return 1;
             }
         }}
+
+    G4Random::setTheSeed(seed);
+    G4cout << "=== RNG seed: " << seed << G4endl;
+    G4Random::showEngineStatus();
 
     // Physics list
     runManager->SetUserInitialization(new SCPhysicsList());
