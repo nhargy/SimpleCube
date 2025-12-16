@@ -312,7 +312,7 @@ Auger electron emission enabled                   1
 Check EM cuts disabled for atomic de-excitation   1
 Use Bearden atomic level energies                 0
 Use ANSTO fluorescence model                      0
-Threshold for very long decay time at rest        1e+10 y  
+Threshold for very long decay time at rest        1000 y  
 ======================================================================
 
 msc:  for alpha  SubType= 10
@@ -860,3 +860,5 @@ See commands in /vis/modeling/trajectories/ for other options.
 ====== Starting Run: 0 ======
 Finishing Run 0
 =====> Processing to .parquet format
+Processing rootfile ==> /storage/xenon/nadavh/SimpleCube/raw/Cobalt60_0017.root
+Processing rootfile ==> /storage/xenon/nadavh/SimpleCube/raw/Cobalt60_0017.root

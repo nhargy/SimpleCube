@@ -54,18 +54,19 @@ edep_by_event = df.groupby("eventID")["fEdep"].sum()
 good_events = edep_by_event[edep_by_event > 0].index
 
 # Filter original df
-eDf = df[df["eventID"].isin(good_events)]
+mask = df["eventID"].isin(good_events)
+eDf = df.loc[mask].copy()
 
 # Now make the df smaller:
-cat_cols = ["creatorProc", "preProcName", "postProcName"]
+cat_cols = ["creatorProc", "postProcName"]
 for c in cat_cols:
     eDf[c] = eDf[c].astype("category")
 
 for c in eDf.select_dtypes(include=["int64"]).columns:
     eDf[c] = pd.to_numeric(eDf[c], downcast="integer")
 for c in df.select_dtypes(include=["float64"]).columns:
-    eDf[c] = pd.to_numeric(eDfdf[c], downcast="float")
+    eDf[c] = pd.to_numeric(eDf[c], downcast="float")
 
 eDf["isEntry"] = eDf["isEntry"].astype("bool")
 
-eDf.to_parquet(args.outfile, engine="pyarrow", compression="zstd", index=False)
+eDf.to_parquet(args.outfile) #, engine="pyarrow", compression="gzip", index=False)

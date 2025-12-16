@@ -194,8 +194,5 @@ void SCDetectorConstruction::ConstructCube()
 void SCDetectorConstruction::ConstructSDandField()
 {
     SCSensitiveDetector *sensDet = new SCSensitiveDetector("SensitveDetector");
-    logic_Cube->SetSensitiveDetector(sensDet);
-}
-=======
     logic_FiducialCube->SetSensitiveDetector(sensDet);
 }
