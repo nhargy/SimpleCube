@@ -1,8 +1,5 @@
-import numpy as np
 import pandas as pd
 import uproot
-import sys
-from tqdm import tqdm
 import argparse
 
 def read_root_file(
@@ -45,7 +42,6 @@ args = parser.parse_args()
 print(f"Processing rootfile ==> {args.rootfile}")
 data = read_root_file(args.rootfile)
 df = pd.DataFrame(data)
-print(f"Processing rootfile ==> {args.rootfile}")
 
 # Sum edep per event in one pass
 edep_by_event = df.groupby("eventID")["fEdep"].sum()
@@ -69,4 +65,5 @@ for c in df.select_dtypes(include=["float64"]).columns:
 
 eDf["isEntry"] = eDf["isEntry"].astype("bool")
 
-eDf.to_parquet(args.outfile) #, engine="pyarrow", compression="gzip", index=False)
+eDf.to_parquet(args.outfile)
+print("Saved!")
