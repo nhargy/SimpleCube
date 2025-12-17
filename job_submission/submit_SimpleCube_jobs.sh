@@ -39,6 +39,7 @@ build_jobscript() {
     local procfilename="$5"
     local seed="$6"
     local dirname="$7"
+    local logfilename="$8"
 
     sed \
         -e "s|{{PRIMARIES}}|$primaries|g" \
@@ -48,6 +49,7 @@ build_jobscript() {
         -e "s|{{USER}}|$USER|g" \
         -e "s|{{SEED}}|$seed|g" \
         -e "s|{{DIRNAME}}|$dirname|g" \
+        -e "s|{{LOGFILENAME}}|$logfilename|g" \
         "$TEMPLATE" > "$jobscript"
 
     chmod +x "$jobscript"
@@ -81,6 +83,7 @@ for ((i = 1; i <= END_INDEX; i++)); do
     JOBID=$(printf "%04d" $i)
     BASENAME="${MACRO_TAG}_${JOBID}"
     OUTFILENAME="${BASENAME}.root"
+    LOGFILENAME="${BASENAME}.log"
     PROCFILENAME="${BASENAME}.parquet"
     echo $OUTFILENAME
     echo $PROCFILENAME
@@ -89,7 +92,7 @@ for ((i = 1; i <= END_INDEX; i++)); do
     echo "Seed: ${SEED}"
 
     JOBSCRIPT="$TMPDIR/hermeticsub_${JOBID}.sh"
-    build_jobscript "$JOBSCRIPT" "$PRIMARIES" "$OUTFILENAME" "$MACROFILE" "$PROCFILENAME" "$SEED" "$DIRNAME"
+    build_jobscript "$JOBSCRIPT" "$PRIMARIES" "$OUTFILENAME" "$MACROFILE" "$PROCFILENAME" "$SEED" "$DIRNAME" "$LOGFILENAME"
     submit_job "$JOBSCRIPT" "$BASENAME"
 done
 

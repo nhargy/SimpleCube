@@ -6,7 +6,7 @@
 #PBS -l select=1:ncpus=1:mem=2500mb
 #PBS -l io=1
 #PBS -j oe
-#PBS -o /storage/xenon/{{USER}}/SimpleCube/{{DIRNAME}}/log/{{OUTFILENAME}}.log
+#PBS -o /storage/xenon/{{USER}}/SimpleCube/{{DIRNAME}}/log/{{LOGFILENAME}}
 
 # Load environment
 echo "Activating LCG environment..."
