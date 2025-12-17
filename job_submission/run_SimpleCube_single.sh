@@ -18,4 +18,4 @@ cd /srv01/xenon/{{USER}}/SimpleCube/build
 ./SimpleCube --macro {{MACROFILE}} --primaries {{PRIMARIES}} --outfile /storage/xenon/{{USER}}/SimpleCube/raw/{{DIRNAME}}/{{OUTFILENAME}}
 
 echo "=====> Processing to .parquet format"    
-python ../analysis/post_processing.py --rootfile /storage/xenon/{{USER}}/SimpleCube/raw/{{OUTFILENAME}} --outfile /storage/xenon/{{USER}}/SimpleCube/proc/{{DIRNAME}}/{{PROCFILENAME}}
+python ../analysis/post_processing.py --rootfile /storage/xenon/{{USER}}/SimpleCube/raw/{{DIRNAME}}/{{OUTFILENAME}} --outfile /storage/xenon/{{USER}}/SimpleCube/proc/{{DIRNAME}}/{{PROCFILENAME}}
