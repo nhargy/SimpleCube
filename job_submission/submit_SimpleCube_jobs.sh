@@ -73,8 +73,9 @@ MACRO_TAG="${MACRO_BASENAME%.*}"
 MACRO_TAG="${MACRO_TAG#run_}"
 DIRNAME="${MACRO_TAG}-${SERIAL}"
 
-mkdir -p "/storage/xenon/$USER/SimpleCube/raw/$DIRNAME"
-mkdir -p "/storage/xenon/$USER/SimpleCube/proc/$DIRNAME"
+mkdir -p "/storage/xenon/$USER/SimpleCube/$DIRNAME/raw"
+mkdir -p "/storage/xenon/$USER/SimpleCube/$DIRNAME/proc"
+mkdir -p "/storage/xenon/$USER/SimpleCube/$DIRNAME/log"
 
 for ((i = 1; i <= END_INDEX; i++)); do
     JOBID=$(printf "%04d" $i)
