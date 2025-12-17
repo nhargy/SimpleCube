@@ -24,6 +24,11 @@ PRIMARIES=$2
 MACROFILE=$3
 
 ###########################################
+# ------  GENERATE SERIAL NUMBER ----------
+###########################################
+SERIAL="$(date +%y%m%d-%H%M%S)-$(tr -dc 'A-Z' </dev/urandom | head -c3)$(tr -dc '0-9' </dev/urandom | head -c3)"
+
+###########################################
 # ------------ BUILD JOBSCRIPT -----------
 ###########################################
 build_jobscript() {
@@ -33,6 +38,7 @@ build_jobscript() {
     local macro="$4"
     local procfilename="$5"
     local seed="$6"
+    local dirname="$7"
 
     sed \
         -e "s|{{PRIMARIES}}|$primaries|g" \
@@ -41,6 +47,7 @@ build_jobscript() {
         -e "s|{{PROCFILENAME}}|$procfilename|g" \
         -e "s|{{USER}}|$USER|g" \
         -e "s|{{SEED}}|$seed|g" \
+        -e "s|{{DIRNAME}}|$dirname|g" \
         "$TEMPLATE" > "$jobscript"
 
     chmod +x "$jobscript"
@@ -72,13 +79,14 @@ for ((i = 1; i <= END_INDEX; i++)); do
     PROCFILENAME="${BASENAME}.parquet"
     echo $OUTFILENAME
     echo $PROCFILENAME
-    echo ""
+    DIRNAME="${BASENAME}-${SERIAL}"
+    echo $DIRNAME
 
     SEED=$((1000000 + i)) 
     echo "Seed: ${SEED}"
 
     JOBSCRIPT="$TMPDIR/hermeticsub_${JOBID}.sh"
-    build_jobscript "$JOBSCRIPT" "$PRIMARIES" "$OUTFILENAME" "$MACROFILE" "$PROCFILENAME" "$SEED"
+    build_jobscript "$JOBSCRIPT" "$PRIMARIES" "$OUTFILENAME" "$MACROFILE" "$PROCFILENAME" "$SEED" "$DIRNAME"
     submit_job "$JOBSCRIPT" "$BASENAME"
 done
 

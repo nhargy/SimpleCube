@@ -4,6 +4,9 @@
 
 # Distance units: [mm]  
 
+/control/verbose 2
+/run/verbose 1
+
 /source/isIon 0
 /source/pdgSource 2112
 /source/energySource 4
