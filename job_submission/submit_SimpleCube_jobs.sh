@@ -71,6 +71,10 @@ END_INDEX=$((1 + NUM_JOBS - 1))
 MACRO_BASENAME=$(basename "$MACROFILE")
 MACRO_TAG="${MACRO_BASENAME%.*}"
 MACRO_TAG="${MACRO_TAG#run_}"
+DIRNAME="${MACRO_TAG}-${SERIAL}"
+
+mkdir -p "/storage/xenon/$USER/SimpleCube/raw/$DIRNAME"
+mkdir -p "/storage/xenon/$USER/SimpleCube/proc/$DIRNAME"
 
 for ((i = 1; i <= END_INDEX; i++)); do
     JOBID=$(printf "%04d" $i)
@@ -79,8 +83,6 @@ for ((i = 1; i <= END_INDEX; i++)); do
     PROCFILENAME="${BASENAME}.parquet"
     echo $OUTFILENAME
     echo $PROCFILENAME
-    DIRNAME="${BASENAME}-${SERIAL}"
-    echo $DIRNAME
 
     SEED=$((1000000 + i)) 
     echo "Seed: ${SEED}"
