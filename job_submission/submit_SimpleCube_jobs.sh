@@ -26,7 +26,7 @@ MACROFILE=$3
 ###########################################
 # ------  GENERATE SERIAL NUMBER ----------
 ###########################################
-SERIAL="$(date +%y%m%d-%H%M%S)-$(tr -dc 'A-Z' </dev/urandom | head -c3)$(tr -dc '0-9' </dev/urandom | head -c3)"
+SERIAL="$(tr -dc 'A-Z' </dev/urandom | head -c3)$(tr -dc '0-9' </dev/urandom | head -c3)_$(date +%d%m%y)"
 
 ###########################################
 # ------------ BUILD JOBSCRIPT -----------
