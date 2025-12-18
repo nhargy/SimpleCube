@@ -56,10 +56,8 @@ build_infofile() {
     tmp=$(mktemp)
     awk -v n="$line" -v src="$macrofilepath" '
     NR==n {
-        print "----- BEGIN MACROFILE: " src " -----"
         while ((getline l < src) > 0) print l
         close(src)
-        print "----- END MACROFILE: " src " -----"
     }
     { print }
     ' "$infopath" > "$tmp" && mv "$tmp" "$infopath"
