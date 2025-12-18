@@ -128,7 +128,7 @@ for ((i = 1; i <= END_INDEX; i++)); do
     echo $OUTFILENAME
     echo $PROCFILENAME
 
-    SEED=$(od -An -N4 -tu4 /dev/urandom | tr -d ' ')
+    SEED=$(( ( $(od -An -N4 -tu4 /dev/urandom | tr -d ' ') % 2147483647 ) + 1 ))
     echo "Seed: ${SEED}"
 
     JOBSCRIPT="$TMPDIR/hermeticsub_${JOBID}.sh"
