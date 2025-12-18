@@ -5,6 +5,7 @@
 ###########################################
 
 TEMPLATE="run_SimpleCube_single.sh"
+INFOTEMPLATE="infofile_template.txt"
 
 ###########################################
 # ---------------  USAGE -----------------
@@ -27,6 +28,40 @@ MACROFILE=$3
 # ------  GENERATE SERIAL NUMBER ----------
 ###########################################
 SERIAL="$(tr -dc 'A-Z' </dev/urandom | head -c3)$(tr -dc '0-9' </dev/urandom | head -c3)_$(date +%d%m%y)"
+
+###########################################
+# ----------  BUILD INFO FILE ----------- #
+###########################################
+build_infofile() {
+    local infopath="$1"
+    local dirname="$2"
+    local primaries="$3"
+    local macro="$4"
+    local njobs="$5"
+    local datetime="$6"
+
+    sed \
+        -e "s|{{PRIMARIES}}|$primaries|g" \
+        -e "s|{{MACROFILE}}|$macro|g" \
+        -e "s|{{USER}}|$USER|g" \
+        -e "s|{{DIRNAME}}|$dirname|g" \
+        -e "s|{{NJOBS}}|$njobs|g" \
+        -e "s|{{DATETIME}}|$datetime|g" \
+        "$INFOTEMPLATE" > "$infopath"
+
+    line=16
+
+    tmp=$(mktemp)
+    awk -v n="$line" -v src="$macro" '
+    NR==n {
+        print "----- BEGIN MACROFILE: " src " -----"
+        while ((getline l < src) > 0) print l
+        close(src)
+        print "----- END MACROFILE: " src " -----"
+    }
+    { print }
+    ' "$infopath" > "$tmp" && mv "$tmp" "$infopath"
+}
 
 ###########################################
 # ------------ BUILD JOBSCRIPT -----------
@@ -74,10 +109,15 @@ MACRO_BASENAME=$(basename "$MACROFILE")
 MACRO_TAG="${MACRO_BASENAME%.*}"
 MACRO_TAG="${MACRO_TAG#run_}"
 DIRNAME="${MACRO_TAG}-${SERIAL}"
+INFOPATH="/storage/xenon/${USER}/SimpleCube/${DIRNAME}/info.txt"
 
+# Make data storage directories
 mkdir -p "/storage/xenon/$USER/SimpleCube/$DIRNAME/raw"
 mkdir -p "/storage/xenon/$USER/SimpleCube/$DIRNAME/proc"
 mkdir -p "/storage/xenon/$USER/SimpleCube/$DIRNAME/log"
+
+DATETIME="$(date +"%d-%m-%y %H:%M:%S")"
+build_infofile "$INFOPATH" "$DIRNAME" "$PRIMARIES" "$MACROFILE" "$NUM_JOBS" "$DATETIME"
 
 for ((i = 1; i <= END_INDEX; i++)); do
     JOBID=$(printf "%04d" $i)
