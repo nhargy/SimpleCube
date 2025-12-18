@@ -51,8 +51,10 @@ build_infofile() {
 
     line=16
 
+    macrofilepath="../macros/${macro}"
+
     tmp=$(mktemp)
-    awk -v n="$line" -v src="$macro" '
+    awk -v n="$line" -v src="$macrofilepath" '
     NR==n {
         print "----- BEGIN MACROFILE: " src " -----"
         while ((getline l < src) > 0) print l
@@ -128,7 +130,7 @@ for ((i = 1; i <= END_INDEX; i++)); do
     echo $OUTFILENAME
     echo $PROCFILENAME
 
-    SEED=$((1000000 + i)) 
+    SEED=$(od -An -N4 -tu4 /dev/urandom | tr -d ' ')
     echo "Seed: ${SEED}"
 
     JOBSCRIPT="$TMPDIR/hermeticsub_${JOBID}.sh"
