@@ -8,6 +8,8 @@
 #include "G4SystemOfUnits.hh"
 #include "G4IonTable.hh"
 #include "G4GenericMessenger.hh"
+#include "SCSpectrumSampler.hh"
+#include <memory>
 
 class SCPrimaryGenerator : public G4VUserPrimaryGeneratorAction
 {
@@ -18,6 +20,12 @@ public:
     virtual void GeneratePrimaries(G4Event *);
 
 private:
+
+    G4String spectrumFile = "absolutepath/to/data/e_dist/edist_Neutrons_AmBe_01.dat";  // macro can override
+    G4String loadedSpectrumFile = "";
+    std::unique_ptr<SpectrumSampler> fSpectrum;     // cached sampler
+
+    void ensureSpectrumLoaded();
 
     void ApplyMessengers();
 

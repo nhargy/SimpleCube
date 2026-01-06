@@ -13,6 +13,11 @@
 /cube/Cube_Length 10
 /cube/Cube_Height 10
 
+# Fiducial Cube dimensions
+/cube/FiducialCube_Width 8
+/cube/FiducialCube_Length 8
+/cube/FiducialCube_Height 8
+
 # Cube-centre position
 /cube/xCube 40
 /cube/yCube 0

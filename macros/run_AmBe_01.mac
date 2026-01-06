@@ -1,12 +1,20 @@
-#########################
-### MACRO: Photon Gun ###
-#########################
+##########################
+###   MACRO: AmBe 01   ###
+##########################
 
 # Distance units: [mm]  
 
+/control/verbose 2
+/run/verbose 1
+
 /source/isIon 0
-/source/pdgSource 22
-/source/energySource 4
+/source/pdgSource 2112
+/source/energySource -1
+/source/spectrumFile /absolute/path/to/data.dat
+
+/source/xSource 0
+/source/ySource 0
+/source/zSource 0
 
 # Cube dimensions
 /cube/Cube_Width 10
