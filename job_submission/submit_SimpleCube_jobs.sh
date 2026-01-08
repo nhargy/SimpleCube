@@ -19,7 +19,6 @@ usage() {
 # -----------  PARSE ARGUMENTS -----------
 ###########################################
 if [ $# -lt 3 ]; then usage; fi
-source /cvmfs/sft.cern.ch/lcg/views/LCG_105/x86_64-el9-gcc12-opt/setup.sh
 NUM_JOBS=$1
 PRIMARIES=$2
 MACROFILE=$3
@@ -52,7 +51,6 @@ build_infofile() {
     line=16
 
     macrofilepath="../macros/${macro}"
-source /cvmfs/sft.cern.ch/lcg/views/LCG_105/x86_64-el9-gcc12-opt/setup.sh
     tmp=$(mktemp)
     awk -v n="$line" -v src="$macrofilepath" '
     NR==n {
