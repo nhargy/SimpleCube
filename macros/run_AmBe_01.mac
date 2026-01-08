@@ -4,7 +4,7 @@
 
 # Distance units: [mm]  
 
-/control/verbose 2
+/control/verbose 1
 /run/verbose 1
 
 /source/isIon 0
@@ -27,9 +27,9 @@
 /cube/FiducialCube_Height 8
 
 # Cube position
-/cube/xCube 40
+/cube/xCube 100
 /cube/yCube 0
-/cube/zCube 5
+/cube/zCube 0
 
 # Lithium relative abundances
 /cube/Li7_percent 93
