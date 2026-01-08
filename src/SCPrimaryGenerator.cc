@@ -42,6 +42,30 @@ void SCPrimaryGenerator::ApplyMessengers() {
     );
 
     fMessengerSource->DeclareProperty(
+        "isSecondSource",
+        isSecondSource,
+        "isSecondSource"
+    );
+
+    fMessengerSource->DeclareProperty(
+        "energySource2",
+        energySource2,
+        "energySource2"
+    );
+    
+    fMessengerSource->DeclareProperty(
+        "pdgSource2",
+        pdgSource2,
+        "pdgSource2"
+    );
+
+    fMessengerSource->DeclareProperty(
+        "fraction2",
+        fraction2,
+        "fraction2"
+    );
+
+    fMessengerSource->DeclareProperty(
         "Z",
         Z,
         "Z"
@@ -92,6 +116,11 @@ void SCPrimaryGenerator::ApplyMessengers() {
     xSource = 0;
     ySource = 0;
     zSource = 0;
+
+    isSecondSource = 0;
+    pdgSource2     = 22;
+    energySource2  = 4.438;
+    fraction2      = 0.6;
 }
 
 void SCPrimaryGenerator::ensureSpectrumLoaded()
@@ -132,16 +161,19 @@ void SCPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
         G4ParticleDefinition *ion  = G4IonTable::GetIonTable()->GetIon(Z, A, 0.);
         fParticleGun->SetParticleDefinition(ion);
         fParticleGun->SetParticleEnergy(0.);
+
+        // Create vertex
+        fParticleGun->GeneratePrimaryVertex(anEvent);
     }
     else if (isIon==0) {
-            G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-            G4ParticleDefinition* particle = particleTable->FindParticle(pdgSource);
-            fParticleGun->SetParticleDefinition(particle);
+        G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
+        G4ParticleDefinition* particle = particleTable->FindParticle(pdgSource);
+        fParticleGun->SetParticleDefinition(particle);
 
-        if (energySource > 0) {
+        if (energySource >= 0) {
             fParticleGun->SetParticleEnergy(energySource * MeV);
         }
-        else if (energySource == -1) {
+        else if (energySource < 0) {
             ensureSpectrumLoaded();
             const double u = G4UniformRand();
             const double sampledEnergySource = fSpectrum->sample(u);
@@ -151,8 +183,21 @@ void SCPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
         // Random isotropic direction
         G4ThreeVector dir = G4RandomDirection();
         fParticleGun->SetParticleMomentumDirection(dir);
-    }
 
-    // Create vertex
-    fParticleGun->GeneratePrimaryVertex(anEvent);
+        // Create vertex
+        fParticleGun->GeneratePrimaryVertex(anEvent);
+
+        if ((isSecondSource == 1) and (G4UniformRand() < fraction2)) {
+            // Another Random isotropic direction
+            G4ThreeVector dir2 = G4RandomDirection();
+            fParticleGun->SetParticleMomentumDirection(dir2);
+
+            G4ParticleDefinition* particle2 = particleTable->FindParticle(pdgSource2);
+            fParticleGun->SetParticleDefinition(particle2);
+            fParticleGun->SetParticleEnergy(energySource2 * MeV);
+
+            // Create vertex
+            fParticleGun->GeneratePrimaryVertex(anEvent);
+        }
+    }
 }

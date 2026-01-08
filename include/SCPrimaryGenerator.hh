@@ -40,6 +40,12 @@ private:
     G4double xSource;
     G4double ySource;
     G4double zSource;
+
+    // For secondary gun
+    G4int    isSecondSource;
+    G4int    pdgSource2;
+    G4double energySource2;
+    G4double fraction2;
 };
 
 #endif
